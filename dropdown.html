@@ -175,7 +175,7 @@
 
       <button id="login-btn" >Login</button>
       <label>
-        <!-- <input type="checkbox" checked="checked" name="remember"> Remember me -->
+        <h3 style="color:red;" id="error-label"></h3>
       </label>
     </div>
 
@@ -186,6 +186,17 @@
   </article>
 
   <article id="record-section">
+    <div class="container">
+      <label for="deviceid"><b>DeviceID</b></label>
+      <input id="deviceid-txtbox" type="text" placeholder="Enter DeviceID" name="deviceid" required>
+
+      <label for="desc"><b>Description</b></label>
+      <input id="desc-txtbox" type="text" placeholder="Enter Description" name="desc" required>
+
+      <label>
+        <h3 style="color:red;" id="error-label-2"></h3>
+      </label>
+    </div>
     <div class="btn" id="record-btn">
       <section><img src="images/recordRTC-progress-1.png"></section>
       Start recording

@@ -17,18 +17,20 @@ async function post_image(url = '', data) {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-function start_recording() {
+function start_recording(deviceid, desc) {
     if (!isRecording) return;
 
     chrome.tabs.captureVisibleTab((screenshotUrl) => {
-        post_image('http://127.0.0.1:3000', { screenshot: screenshotUrl })
+        chrome.storage.sync.get('username', function (obj) {
+            post_image('http://127.0.0.1:3000', { screenshot: screenshotUrl, username: obj.username, deviceid: deviceid, desc: desc })
             .then(data => {
                 println(data);
             });
+        });
     });
 
     if (isRecording) {
-        setTimeout(start_recording, 5000);
+        setTimeout(start_recording, 5000, deviceid, desc);
         return;
     }
 }
@@ -50,7 +52,7 @@ chrome.runtime.onConnect.addListener(function(port) {
         if (message.start_recording) {
             isRecording = true; 
 
-            start_recording();
+            start_recording(message.deviceid, message.desc);
             onRecording();
         }
 
